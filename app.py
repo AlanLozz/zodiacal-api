@@ -2,6 +2,8 @@ from flask import Flask, request
 from pymongo import MongoClient
 from flask_cors import CORS
 import pymongo
+import pandas as pd
+from bson import json_util
 
 app = Flask(__name__)
 mongo_uri= 'mongodb+srv://admin:password1234@firstcluster.neuly.mongodb.net/zodiacal?retryWrites=true&w=majority'
@@ -30,7 +32,7 @@ def add_data():
 
     if (nombre and profesion and esExtrovertido and exteriorizaSentimientos and temorCambio and aventuraRiesgo and emocionesLunaLlena and disfrazaSentimientos and incomodidadReirLlorar and falsaFelicidad and comparteSentimientosPensamientos and personaRacional and vulnerableTemorAmor and preocupacionPercepcion and temoresIrracionales
     ):
-        id = db.insert_one({
+        db.insert_one({
             'nombre': nombre,
             'profesion': profesion,
             'esExtrovertido': esExtrovertido,
@@ -49,11 +51,21 @@ def add_data():
         })
         response = {
             'message' : 'Se agrego correctamente',
-            'id': str(id)
+            'ok': 'true'
         }
         return response
     else:
-        return {'message':'Necesitas llenar todos los datos', "error": "true"}
+        return {'message':'Necesitas llenar todos los datos', "ok": "false"}
+
+@app.route('/getData', methods=['GET'])
+def get_data():
+    data = db.find({})
+    response = json_util.dumps(data)
+    return response
+
+# datas = [data for data in db.find()]
+# df_inventory = pd.DataFrame(datas)
+# print(df_inventory)
 
 if __name__ == "__main__":
     app.run(debug=True)
