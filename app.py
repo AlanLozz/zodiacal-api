@@ -1,9 +1,11 @@
 from flask import Flask, request
 from pymongo import MongoClient
+from flask_cors import CORS
 import pymongo
 
 app = Flask(__name__)
 mongo_uri= 'mongodb+srv://admin:password1234@firstcluster.neuly.mongodb.net/zodiacal?retryWrites=true&w=majority'
+CORS(app)
 
 client = MongoClient(mongo_uri)
 db = client.zodiacal.datos
