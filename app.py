@@ -10,45 +10,18 @@ mongo_uri= 'mongodb+srv://admin:password1234@firstcluster.neuly.mongodb.net/zodi
 CORS(app)
 
 client = MongoClient(mongo_uri)
-db = client.zodiacal.datos
+db = client.zodiacal.nuevosdatos
 
 @app.route('/newData', methods=['POST'])
 def add_data():
-    nombre = request.json['nombre']
-    profesion = request.json['profesion']
-    esExtrovertido = request.json['esExtrovertido']
-    exteriorizaSentimientos = request.json['exteriorizaSentimientos']
-    temorCambio = request.json['temorCambio']
-    aventuraRiesgo = request.json['aventuraRiesgo']
-    emocionesLunaLlena = request.json['emocionesLunaLlena']
-    disfrazaSentimientos = request.json['disfrazaSentimientos']
-    incomodidadReirLlorar = request.json['incomodidadReirLlorar']
-    falsaFelicidad = request.json['falsaFelicidad']
-    comparteSentimientosPensamientos = request.json['comparteSentimientosPensamientos']
-    personaRacional = request.json['personaRacional']
-    vulnerableTemorAmor = request.json['vulnerableTemorAmor']
-    preocupacionPercepcion = request.json['preocupacionPercepcion']
-    temoresIrracionales = request.json['temoresIrracionales']
+    caracter = request.json['caracter']
+    caracteristica = request.json['caracteristica']
+    debilidad = request.json['debilidad']
+    relacionesAmorosas = request.json['relacionesAmorosas']
+    signoZodiacal = request.json['signoZodiacal']
 
-    if (nombre and profesion and esExtrovertido and exteriorizaSentimientos and temorCambio and aventuraRiesgo and emocionesLunaLlena and disfrazaSentimientos and incomodidadReirLlorar and falsaFelicidad and comparteSentimientosPensamientos and personaRacional and vulnerableTemorAmor and preocupacionPercepcion and temoresIrracionales
-    ):
-        db.insert_one({
-            'nombre': nombre,
-            'profesion': profesion,
-            'esExtrovertido': esExtrovertido,
-            'exteriorizaSentimientos': exteriorizaSentimientos,
-            'temorCambio': temorCambio,
-            'aventuraRiesgo': aventuraRiesgo,
-            'emocionesLunaLlena': emocionesLunaLlena,
-            'disfrazaSentimientos': disfrazaSentimientos,
-            'incomodidadReirLlorar': incomodidadReirLlorar,
-            'falsaFelicidad': falsaFelicidad,
-            'comparteSentimientosPensamientos': comparteSentimientosPensamientos,
-            'personaRacional': personaRacional,
-            'vulnerableTemorAmor': vulnerableTemorAmor,
-            'preocupacionPercepcion': preocupacionPercepcion,
-            'temoresIrracionales': temoresIrracionales
-        })
+    if (caracter and caracteristica and debilidad and relacionesAmorosas and signoZodiacal):
+        db.insert_one(request.json)
         response = {
             'message' : 'Se agrego correctamente',
             'ok': 'true'
