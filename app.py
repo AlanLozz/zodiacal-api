@@ -19,8 +19,10 @@ def add_data():
     debilidad = request.json['debilidad']
     relacionesAmorosas = request.json['relacionesAmorosas']
     signoZodiacal = request.json['signoZodiacal']
+    edad = request.json['edad']
+    genero = request.json['genero']
 
-    if (caracter and caracteristica and debilidad and relacionesAmorosas and signoZodiacal):
+    if (caracter and caracteristica and debilidad and relacionesAmorosas and signoZodiacal and genero and edad):
         db.insert_one(request.json)
         response = {
             'message' : 'Se agrego correctamente',
